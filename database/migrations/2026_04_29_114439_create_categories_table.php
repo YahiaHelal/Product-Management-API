@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
@@ -18,17 +15,13 @@ return new class extends Migration
                     ->constrained('categories')
                     ->nullOnDelete();
 
-            $table->boolean('status')->default(true); // active / inactive
-
+            $table->boolean('status')->default(true);
             $table->string('image_path')->nullable();
 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('categories');

@@ -4,7 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductTranslations extends Model
+class ProductTranslation extends Model
 {
-    //
+    public $timestamps = false;
+
+    protected $fillable = [
+        'title',
+        'description',
+    ];
 }
