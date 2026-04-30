@@ -32,15 +32,11 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
-    // ========== JWT METHODS (Required) ==========
-
-    //  will be stored in the subject claim of the JWT.
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
 
-    //any custom claims to be added to the JWT.
     public function getJWTCustomClaims()
     {
         return [];
