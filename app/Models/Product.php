@@ -22,7 +22,6 @@ class Product extends Model
         'main_image_path',
         'status',
         'category_id',
-        'category_translation_id',
     ];
 
     public $translatedAttributes = [

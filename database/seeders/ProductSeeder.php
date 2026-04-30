@@ -13,47 +13,43 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $laptopsCategory = Category::whereTranslation('name', 'Labtops', 'en')->first();
-        $fashionCategory = Category::whereTranslation('name', 'Fashion', 'en')->first();
+        $laptopsCategory = Category::where('image_path', 'docs/labtops.jpg')->firstOrFail();
+        $fashionCategory = Category::where('image_path', 'docs/fashion.jpg')->firstOrFail();
 
-        if ($laptopsCategory) {
-            $macbook = new Product();
-            $macbook->fill([
-                'sku' => 'LAP-APPLE-MBP14',
-                'price' => 1999.99,
-                'sale_price' => 1799.99,
-                'stock' => 25,
-                'brand' => 'Apple',
-                'main_image_path' => 'docs/labtops.jpg',
-                'status' => true,
-                'category_id' => $laptopsCategory->id,
-                'category_translation_id' => $laptopsCategory->translate('en')->id,
-            ]);
-            $macbook->translateOrNew('en')->title = 'MacBook Pro 14"';
-            $macbook->translateOrNew('en')->description = 'Powerful 14-inch laptop for developers and creators.';
-            $macbook->translateOrNew('ar')->title = 'ماك بوك برو 14"';
-            $macbook->translateOrNew('ar')->description = 'حاسوب محمول قوي مقاس 14 بوصة للمطورين وصناع المحتوى.';
-            $macbook->save();
-        }
+        $laptopProduct = new Product();
+        $laptopProduct->fill([
+            'sku' => 'LAP-1001',
+            'price' => 1299.99,
+            'sale_price' => 1199.99,
+            'stock' => 25,
+            'brand' => 'ApexTech',
+            'main_image_path' => 'docs/products/laptop-pro-15.jpg',
+            'status' => true,
+            'category_id' => $laptopsCategory->id,
+        ]);
 
-        if ($fashionCategory) {
-            $jacket = new Product();
-            $jacket->fill([
-                'sku' => 'FSH-JACKET-001',
-                'price' => 89.99,
-                'sale_price' => 69.99,
-                'stock' => 80,
-                'brand' => 'UrbanWear',
-                'main_image_path' => 'docs/fashion.jpg',
-                'status' => true,
-                'category_id' => $fashionCategory->id,
-                'category_translation_id' => $fashionCategory->translate('en')->id,
-            ]);
-            $jacket->translateOrNew('en')->title = 'Casual Denim Jacket';
-            $jacket->translateOrNew('en')->description = 'Classic fit denim jacket suitable for daily wear.';
-            $jacket->translateOrNew('ar')->title = 'جاكيت جينز كاجوال';
-            $jacket->translateOrNew('ar')->description = 'جاكيت جينز بقصة كلاسيكية مناسب للاستخدام اليومي.';
-            $jacket->save();
-        }
+        $laptopProduct->translateOrNew('en')->title = 'Laptop Pro 15';
+        $laptopProduct->translateOrNew('en')->description = 'High-performance laptop for productivity and creative work.';
+        $laptopProduct->translateOrNew('ar')->title = 'لابتوب برو 15';
+        $laptopProduct->translateOrNew('ar')->description = 'لابتوب عالي الأداء للإنتاجية والأعمال الإبداعية.';
+        $laptopProduct->save();
+
+        $fashionProduct = new Product();
+        $fashionProduct->fill([
+            'sku' => 'FSH-2001',
+            'price' => 79.99,
+            'sale_price' => null,
+            'stock' => 120,
+            'brand' => 'UrbanLine',
+            'main_image_path' => 'docs/products/classic-jacket.jpg',
+            'status' => true,
+            'category_id' => $fashionCategory->id,
+        ]);
+
+        $fashionProduct->translateOrNew('en')->title = 'Classic Jacket';
+        $fashionProduct->translateOrNew('en')->description = 'Comfortable everyday jacket with a timeless design.';
+        $fashionProduct->translateOrNew('ar')->title = 'جاكيت كلاسيكي';
+        $fashionProduct->translateOrNew('ar')->description = 'جاكيت مريح للاستخدام اليومي بتصميم كلاسيكي.';
+        $fashionProduct->save();
     }
 }
