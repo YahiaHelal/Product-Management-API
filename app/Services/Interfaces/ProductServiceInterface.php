@@ -18,4 +18,7 @@ interface ProductServiceInterface
     public function listInActiveProducts(): Collection;
 
     public function listByBrand(string $brand): Collection;
+
+    public function listAllProducts(): Collection;
+    public function getProductById(int $id): Product;
 }

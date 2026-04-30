@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use Override;
 
 class ProductService implements ProductServiceInterface
 {
@@ -29,6 +30,14 @@ class ProductService implements ProductServiceInterface
     public function deleteProduct(int $id): bool
     {
         return $this->repo->delete($id);
+    }
+    public function listAllProducts(): Collection {
+        return $this->repo->all();
+    }
+
+    public function getProductById(int $id): Product
+    {
+        return $this->repo->find($id);
     }
 
     public function listActiveProducts(): Collection
