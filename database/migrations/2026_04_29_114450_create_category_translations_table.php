@@ -15,7 +15,7 @@ return new class extends Migration
                     ->cascadeOnDelete();
 
             $table->string('locale')->index(); // 'en' or 'ar'
-            $table->string('name');
+            $table->string('name')->index();
 
             $table->unique(['category_id', 'locale']);
         });
