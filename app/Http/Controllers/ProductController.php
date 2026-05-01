@@ -15,9 +15,9 @@ class ProductController extends Controller
     public function __construct(private ProductServiceInterface $productService) {}
 
     public function index(Request $request): JsonResponse {
-        if($request->boolean('active-only')) {
+        if($request->boolean('active_only')) {
             $products = $this->productService->listActiveProducts();
-        }else if($request->boolean('inactive-only')) {
+        }else if($request->boolean('inactive_only')) {
             $products = $this->productService->listInActiveProducts();
         }else if($request->filled('brand')) {
             $products = $this->productService->listByBrand((string) $request->query('brand'));
@@ -25,7 +25,10 @@ class ProductController extends Controller
             $products = $this->productService->listAllProducts();
         }
 
-        return response()->json(['data' => $products]);
+        return response()->json([
+            'locale' => app()->getLocale(),
+            'data' => $this->transformCollection($products),
+        ]);
     }
 
     public function store(StoreProductRequest $request): JsonResponse
@@ -64,14 +67,14 @@ class ProductController extends Controller
 
         return response()->json([
             'locale' => app()->getLocale(),
-            'message' => $deleted ? 'Product deleted successfully' : 'Product not found',
+            'message' => $deleted ? __('messages.product_deleted') : __('messages.product_not_found'),
         ], $deleted ? 200 : 404);
     }
 
-    // private function transformCollection(Collection $products): array
-    // {
-    //     return $products->map(fn (Product $product) => $this->transformProduct($product))->all();
-    // }
+    private function transformCollection(Collection $products): array
+    {
+        return $products->map(fn (Product $product) => $this->transformProduct($product))->all();
+    }
 
     private function transformProduct(Product $product): array
     {

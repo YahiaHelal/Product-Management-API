@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreProductRequest extends FormRequest
 {
@@ -29,5 +31,15 @@ class StoreProductRequest extends FormRequest
             'description.en' => ['nullable', 'string'],
             'description.ar' => ['nullable', 'string'],
         ];
+    }
+
+    // instead of redirecting which triggers 500 error
+    protected function failedValidation(Validator $validator): void
+    {
+        throw new HttpResponseException(response()->json([
+            'locale' => app()->getLocale(),
+            'message' => __('messages.validation_failed'),
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }

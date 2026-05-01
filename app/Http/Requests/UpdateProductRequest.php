@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -32,5 +34,14 @@ class UpdateProductRequest extends FormRequest
             'description.en' => ['nullable', 'string'],
             'description.ar' => ['nullable', 'string'],
         ];
+    }
+
+    protected function failedValidation(Validator $validator): void
+    {
+        throw new HttpResponseException(response()->json([
+            'locale' => app()->getLocale(),
+            'message' => __('messages.validation_failed'),
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }
