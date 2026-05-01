@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
 class StoreProductRequest extends FormRequest
 {
     public function authorize(): bool
@@ -38,7 +37,7 @@ class StoreProductRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'locale' => app()->getLocale(),
-            'message' => __('messages.validation_failed'),
+            'message' => 'Validation Failed',
             'errors' => $validator->errors(),
         ], 422));
     }

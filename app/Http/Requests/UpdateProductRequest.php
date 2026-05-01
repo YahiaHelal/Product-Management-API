@@ -40,7 +40,7 @@ class UpdateProductRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json([
             'locale' => app()->getLocale(),
-            'message' => __('messages.validation_failed'),
+            'message' => 'Validation Failed',
             'errors' => $validator->errors(),
         ], 422));
     }

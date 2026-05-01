@@ -67,7 +67,7 @@ class ProductController extends Controller
 
         return response()->json([
             'locale' => app()->getLocale(),
-            'message' => $deleted ? __('messages.product_deleted') : __('messages.product_not_found'),
+            'message' => $deleted ? 'Product Deleted Successfully' : 'Product Not Found',
         ], $deleted ? 200 : 404);
     }
 
