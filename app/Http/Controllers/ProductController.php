@@ -15,19 +15,43 @@ class ProductController extends Controller
     public function __construct(private ProductServiceInterface $productService) {}
 
     public function index(Request $request): JsonResponse {
-        if($request->boolean('active_only')) {
-            $products = $this->productService->listActiveProducts();
-        }else if($request->boolean('inactive_only')) {
-            $products = $this->productService->listInActiveProducts();
-        }else if($request->filled('brand')) {
-            $products = $this->productService->listByBrand((string) $request->query('brand'));
-        }else {
-            $products = $this->productService->listAllProducts();
-        }
+        // if($request->boolean('active_only')) {
+        //     $products = $this->productService->listActiveProducts();
+        // }else if($request->boolean('inactive_only')) {
+        //     $products = $this->productService->listInActiveProducts();
+        // }else if($request->filled('brand')) {
+        //     $products = $this->productService->listByBrand((string) $request->query('brand'));
+        // }else {
+        //     $products = $this->productService->listAllProducts();
+        // }
+
+        // return response()->json([
+        //     'locale' => app()->getLocale(),
+        //     'data' => $this->transformCollection($products),
+        // ]);
+
+        $filters = $request->only([
+            'active_only',
+            'inactive_only',
+            'brand',
+            'category_id',
+            'min_price',
+            'max_price',
+            'search',
+        ]);
+
+        $perPage = (int) $request->query('per_page', 10);
+        $products = $this->productService->filterProducts($filters, $perPage);
 
         return response()->json([
             'locale' => app()->getLocale(),
-            'data' => $this->transformCollection($products),
+            'meta' => [
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+                'per_page' => $products->perPage(),
+                'total' => $products->total()
+            ],
+            'data' => $this->transformCollection(collect($products->items())),
         ]);
     }
 

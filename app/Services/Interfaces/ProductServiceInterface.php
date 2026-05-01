@@ -20,5 +20,8 @@ interface ProductServiceInterface
     public function listByBrand(string $brand): Collection;
 
     public function listAllProducts(): Collection;
+
     public function getProductById(int $id): Product;
+
+    public function filterProducts(array $filters, int $perPage);
 }

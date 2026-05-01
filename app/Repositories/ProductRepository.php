@@ -44,6 +44,36 @@ class ProductRepository implements ProductRepositoryInterface
     public function getByBrand(string $brand): Collection {
         return Product::byBrand($brand)->get();
     }
+
+    public function filter(array $filters, int $perPage = 10) {
+        $query = Product::query();
+
+        if(!empty($filters['active_only'])) {
+            $query->active();
+        }
+        if(!empty($filters['inactive_only'])) {
+            $query->inactive();
+        }
+        if(!empty($filters['brand'])) {
+            $query->byBrand($filters['brand']);
+        }
+
+        if(!empty($filters['category_id'])) {
+            $query->byCategory($filters['category_id']);
+        }
+
+        $query->priceRange(
+            $filters['min_price'] ?? null,
+            $filters['max_price'] ?? null,
+        );
+
+        if(!empty($filters['search'])) {
+            $query->search($filters['search']);
+        }
+
+        return $query->paginate($perPage);
+
+    }
 }
 
 

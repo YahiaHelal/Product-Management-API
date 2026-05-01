@@ -23,5 +23,7 @@ interface ProductRepositoryInterface
     public function getInActive(): Collection;
 
     public function getByBrand(string $brand): Collection;
+
+    public function filter(array $filters, int $perPage);
 }
 

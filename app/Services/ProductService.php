@@ -63,6 +63,10 @@ class ProductService implements ProductServiceInterface
         return $this->repo->getByBrand($brand);
     }
 
+    public function filterProducts(array $filters, int $perPage = 10) {
+        return $this->repo->filter($filters, $perPage);
+    }
+
     private function validatePricing(array $data): void
     {
         if (isset($data['sale_price'], $data['price']) && $data['sale_price'] > $data['price']) {
