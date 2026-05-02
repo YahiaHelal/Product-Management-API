@@ -3,14 +3,13 @@
 namespace App\Repositories\Interfaces;
 
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 interface ProductRepositoryInterface
 {
     public function all(): Collection;
 
-    public function find(int $id): Product; // throws an error if not found
+    public function find(int $id): Product; // throws an exception if not found
 
     public function create(array $data): Product;
 

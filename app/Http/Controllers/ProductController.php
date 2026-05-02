@@ -15,21 +15,6 @@ class ProductController extends Controller
     public function __construct(private ProductServiceInterface $productService) {}
 
     public function index(Request $request): JsonResponse {
-        // if($request->boolean('active_only')) {
-        //     $products = $this->productService->listActiveProducts();
-        // }else if($request->boolean('inactive_only')) {
-        //     $products = $this->productService->listInActiveProducts();
-        // }else if($request->filled('brand')) {
-        //     $products = $this->productService->listByBrand((string) $request->query('brand'));
-        // }else {
-        //     $products = $this->productService->listAllProducts();
-        // }
-
-        // return response()->json([
-        //     'locale' => app()->getLocale(),
-        //     'data' => $this->transformCollection($products),
-        // ]);
-
         $filters = $request->only([
             'active_only',
             'inactive_only',

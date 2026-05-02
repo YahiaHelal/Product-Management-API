@@ -17,4 +17,5 @@ class CategoryFactory extends Factory
             'image_path' => 'docs/' . $this->faker->word() . '.jpg',
         ];
     }
+
 }

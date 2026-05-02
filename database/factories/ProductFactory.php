@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 class ProductFactory extends Factory
 {
@@ -30,4 +31,5 @@ class ProductFactory extends Factory
             'category_id' => Category::inRandomOrder()->value('id') ?? Category::factory(),
         ];
     }
+    
 }

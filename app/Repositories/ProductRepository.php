@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -45,13 +46,13 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::byBrand($brand)->get();
     }
 
-    public function filter(array $filters, int $perPage = 10) {
+    public function filter(array $filters, int $perPage = 10): LengthAwarePaginator {
         $query = Product::query();
 
-        if(!empty($filters['active_only'])) {
+        if(!empty($filters['active_only']) && $filters['active_only'] === 'true') {
             $query->active();
         }
-        if(!empty($filters['inactive_only'])) {
+        if(!empty($filters['inactive_only']) && $filters['inactive_only'] === 'true') {
             $query->inactive();
         }
         if(!empty($filters['brand'])) {

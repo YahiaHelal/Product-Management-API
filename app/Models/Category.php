@@ -42,10 +42,13 @@ class Category extends Model
         return $this->children()->with('descendants');
     }
 
+
     public function products()
     {
         return $this->hasMany(Product::class);
     }
+
+    // scopes ------
 
     public function scopeRoots(Builder $query)
     {
@@ -73,6 +76,7 @@ class Category extends Model
         return $this->children()->exists();
     }
 
+    // dfs
     public function getAncestorIds(): array
     {
         $ancestors = [];
@@ -85,6 +89,8 @@ class Category extends Model
 
         return $ancestors;
     }
+
+
 
     public function isDescendantOf(int $categoryId): bool
     {

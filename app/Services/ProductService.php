@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\Product;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Services\Interfaces\ProductServiceInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -63,7 +64,7 @@ class ProductService implements ProductServiceInterface
         return $this->repo->getByBrand($brand);
     }
 
-    public function filterProducts(array $filters, int $perPage = 10) {
+    public function filterProducts(array $filters, int $perPage = 10): LengthAwarePaginator {
         return $this->repo->filter($filters, $perPage);
     }
 

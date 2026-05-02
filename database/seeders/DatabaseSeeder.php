@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->seedersSeed();
+    }
+
+    public function factorySeed() {
         $categories = Category::factory(10)->create();
 
         foreach ($categories as $category) {
@@ -36,5 +40,11 @@ class DatabaseSeeder extends Seeder
 
             $product->save();
         }
+    }
+    public function seedersSeed() {
+        $this->call([
+            CategorySeeder::class,
+            ProductSeeder::class,
+        ]);
     }
 }
