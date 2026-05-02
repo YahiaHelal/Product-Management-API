@@ -32,12 +32,14 @@ class StoreProductRequest extends FormRequest
         ];
     }
 
+
+
     // instead of redirecting which triggers 500 error
     protected function failedValidation(Validator $validator): void
     {
         throw new HttpResponseException(response()->json([
             'locale' => app()->getLocale(),
-            'message' => 'Validation Failed',
+            'message' => 'Product Validation Failed',
             'errors' => $validator->errors(),
         ], 422));
     }

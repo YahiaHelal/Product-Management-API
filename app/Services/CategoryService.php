@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use App\Services\Interfaces\CategoryServiceInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use Override;
 
 class CategoryService implements CategoryServiceInterface {
 
@@ -16,12 +18,66 @@ class CategoryService implements CategoryServiceInterface {
         return $this->repo->all();
     }
 
-    public function paginatedResult(int $perPage): LengthAwarePaginator
+    public function getCategoryById(int $id): Category
     {
-        return $this->repo->paginatedResult($perPage);
+        return $this->repo->find($id);
     }
 
-    public function filter(array $filters, int $perPage): LengthAwarePaginator {
+    public function createCategory(array $data): Category
+    {
+        $translations = $this->extractTranslations($data);
+        $cat = $this->repo->create($data);
+
+        $this->syncTranslations($cat, $translations);
+
+        return $cat->fresh();
+    }
+
+    public function updateCategory(int $id, array $data): Category
+    {
+        $translations = $this->extractTranslations($data);
+
+        $cat = $this->repo->update($id, $data);
+        $this->syncTranslations($cat, $translations);
+
+        return $cat->fresh();
+    }
+
+    public function deleteCategory(int $id): bool
+    {
+        return $this->repo->delete($id);
+    }
+
+    public function listActiveCategories(): Collection
+    {
+        return $this->repo->getActive();
+    }
+
+    public function listInActiveCategories(): Collection
+    {
+        return $this->repo->getIntactive();
+    }
+
+
+    public function filterCategories(array $filters, int $perPage): LengthAwarePaginator {
         return $this->repo->filter($filters, $perPage);
+    }
+
+    private function extractTranslations(array &$data): array {
+        $nameTranslations = $data['name'] ?? [];
+        unset($data['name']);
+        return [
+            'name' => is_array($nameTranslations) ? $nameTranslations : []
+        ];
+    }
+
+    private function syncTranslations(Category $cat, array $translations): void {
+
+        foreach($translations['name'] as $locale => $name) {
+            $cat->translateOrNew($locale)->name = $name;
+        }
+        if(!empty($locales)) {
+            $cat->save();
+        }
     }
 }

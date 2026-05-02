@@ -15,8 +15,31 @@ class CategoryRepository implements CategoryRepositoryInterface {
         return Category::all();
     }
 
-    public function paginatedResult(int $perPage): LengthAwarePaginator {
-        return Category::query()->paginate($perPage);
+    public function find(int $id): Category {
+        return Category::find($id);
+    }
+
+    public function create(array $data): Category {
+        return Category::create($data);
+    }
+
+    public function update(int $id, array $data): Category {
+        $cat = Category::find($id);
+        $cat->update($data);
+
+        return $cat->fresh();
+    }
+
+    public function delete(int $id): bool {
+        return Category::destroy($id) > 0;
+    }
+
+    public function getActive(): Collection {
+        return Category::active()->get();
+    }
+
+    public function getIntactive(): Collection {
+        return Category::inactive()->get();
     }
 
     public function filter(array $filters, int $perPage): LengthAwarePaginator

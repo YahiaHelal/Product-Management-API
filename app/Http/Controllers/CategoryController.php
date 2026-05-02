@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Services\Interfaces\CategoryServiceInterface;
 use Illuminate\Http\JsonResponse;
@@ -22,7 +23,7 @@ class CategoryController extends Controller
         ]);
         $perPage = (int) $request->query('per_page', 10);
 
-        $cats = $this->categoryService->filter($filters, $perPage);
+        $cats = $this->categoryService->filterCategories($filters, $perPage);
         $treeView = !empty($filters['tree']) && ($filters['tree'] === 'true');
 
         return response()->json([
@@ -36,8 +37,20 @@ class CategoryController extends Controller
             'data' => ($treeView)
             ? $this->transformCollectionDfs(collect($cats->items()))
             : $this->transformCollection(collect($cats->items())),
-        ]);
+        ], 200);
     }
+
+    public function store(StoreCategoryRequest $request): JsonResponse {
+        $cat = $this->categoryService->createCategory($request->validated());
+
+        return response()->json([
+            'locale' => app()->getLocale(),
+            'data' => $this->transformCategory($cat),
+        ], 201);
+    }
+
+
+
 
     private function transformCollection(Collection $cats): array {
         return $cats->map(fn (Category $cat) => $this->transformCategory($cat))->all();

@@ -60,6 +60,10 @@ class Category extends Model
         return $query->where('status', true);
     }
 
+    public function scopeInactive(Builder $query) {
+        return $query->where('status', false);
+    }
+
     public function scopeWithChildren(Builder $query)
     {
         return $query->with('children');
