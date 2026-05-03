@@ -72,12 +72,13 @@ class CategoryService implements CategoryServiceInterface {
     }
 
     private function syncTranslations(Category $cat, array $translations): void {
-
+        if(empty($translations['name'])) {
+            return;
+        }
         foreach($translations['name'] as $locale => $name) {
-            $cat->translateOrNew($locale)->name = $name;
+            $translation = $cat->translateOrNew($locale);
+            $translation->name = $name;
         }
-        if(!empty($locales)) {
-            $cat->save();
-        }
+        $cat->save();
     }
 }

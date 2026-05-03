@@ -33,8 +33,6 @@ class StoreProductRequest extends FormRequest
     }
 
 
-
-    // instead of redirecting which triggers 500 error
     protected function failedValidation(Validator $validator): void
     {
         throw new HttpResponseException(response()->json([

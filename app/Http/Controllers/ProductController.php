@@ -17,7 +17,6 @@ class ProductController extends Controller
     public function index(Request $request): JsonResponse {
         $filters = $request->only([
             'active_only',
-            'inactive_only',
             'brand',
             'category_id',
             'min_price',

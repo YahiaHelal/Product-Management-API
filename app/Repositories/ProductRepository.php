@@ -49,12 +49,14 @@ class ProductRepository implements ProductRepositoryInterface
     public function filter(array $filters, int $perPage = 10): LengthAwarePaginator {
         $query = Product::query();
 
-        if(!empty($filters['active_only']) && $filters['active_only'] === 'true') {
-            $query->active();
+        if(!empty($filters['active_only'])) {
+            if($filters['active_only'] === 'true') {
+                $query->active();
+            }else {
+                $query->inactive();
+            }
         }
-        if(!empty($filters['inactive_only']) && $filters['inactive_only'] === 'true') {
-            $query->inactive();
-        }
+
         if(!empty($filters['brand'])) {
             $query->byBrand($filters['brand']);
         }

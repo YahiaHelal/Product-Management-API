@@ -17,7 +17,6 @@ class CategoryController extends Controller
     public function index(Request $request): JsonResponse {
         $filters = $request->only([
             'active_only',
-            'inactive_only',
             'tree',
             'search',
         ]);

@@ -27,14 +27,14 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['sometimes', 'boolean'],
-            'image_path' => ['nullable', 'string', 'max:255'],
             'parent_id' => [
                 'nullable',
                 'integer',
                 'exists:categories,id',
             ],
-            'name' => ['nullable', 'array'],
+            'status' => ['sometimes', 'boolean'],
+            'image_path' => ['nullable', 'string', 'max:255'],
+            'name' => ['required', 'array'],
             'name.en' => ['required_with:name', 'string', 'max:255'],
             'name.ar' => ['nullable', 'string', 'max:255'],
         ];

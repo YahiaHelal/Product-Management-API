@@ -16,7 +16,7 @@ class CategoryRepository implements CategoryRepositoryInterface {
     }
 
     public function find(int $id): Category {
-        return Category::find($id);
+        return Category::findOrFail($id);
     }
 
     public function create(array $data): Category {
@@ -24,7 +24,7 @@ class CategoryRepository implements CategoryRepositoryInterface {
     }
 
     public function update(int $id, array $data): Category {
-        $cat = Category::find($id);
+        $cat = Category::findOrFail($id);
         $cat->update($data);
 
         return $cat->fresh();
@@ -46,11 +46,12 @@ class CategoryRepository implements CategoryRepositoryInterface {
     {
         $query = Category::query();
 
-        if(!empty($filters['active_only']) && $filters['active_only'] === 'true') {
-            $query->active();
-        }
-        if(!empty($filters['inactive_only']) && $filters['inactive_only'] === 'true') {
-            $query->inactive();
+        if(!empty($filters['active_only'])) {
+            if($filters['active_only'] === 'true') {
+                $query->active();
+            }else {
+                $query->inactive();
+            }
         }
 
         if(!empty($filters['search'])) {
