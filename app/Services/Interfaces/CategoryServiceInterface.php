@@ -21,5 +21,5 @@ interface CategoryServiceInterface {
 
     public function getCategoryById(int $id): Category;
 
-    public function filterCategories(array $filters, int $perPage): LengthAwarePaginator;
+    public function filterCategories(array $filters, int $perPage = 10): LengthAwarePaginator;
 }

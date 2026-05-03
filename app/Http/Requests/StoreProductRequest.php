@@ -23,7 +23,7 @@ class StoreProductRequest extends FormRequest
             'main_image_path' => ['nullable', 'string', 'max:255'],
             'status' => ['sometimes', 'boolean'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'title' => ['nullable', 'array'],
+            'title' => ['required', 'array'],
             'title.en' => ['required_with:title', 'string', 'max:255'],
             'title.ar' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'array'],

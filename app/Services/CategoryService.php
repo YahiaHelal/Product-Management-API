@@ -23,6 +23,7 @@ class CategoryService implements CategoryServiceInterface {
         return $this->repo->find($id);
     }
 
+
     public function createCategory(array $data): Category
     {
         $translations = $this->extractTranslations($data);
@@ -59,7 +60,7 @@ class CategoryService implements CategoryServiceInterface {
     }
 
 
-    public function filterCategories(array $filters, int $perPage): LengthAwarePaginator {
+    public function filterCategories(array $filters, int $perPage = 10): LengthAwarePaginator {
         return $this->repo->filter($filters, $perPage);
     }
 

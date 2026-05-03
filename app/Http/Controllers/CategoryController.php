@@ -48,7 +48,27 @@ class CategoryController extends Controller
         ], 201);
     }
 
+    // TODO: full tree of a single category
+    public function show(int $catId): JsonResponse {
+        $cat = $this->categoryService->getCategoryById($catId);
 
+        return response()->json([
+            'locale' => app()->getLocale(),
+            'data' => $this->transformCategory($cat)
+        ]);
+    }
+
+
+    public function destroy(int $catId): JsonResponse {
+        $deleted = $this->categoryService->deleteCategory($catId);
+
+        return response()->json([
+            'locale' => app()->getLocale(),
+            'message' => $deleted ? 'Category Deleted Successfully' : 'Category Not Found',
+        ], $deleted ? 200 : 404);
+    }
+
+    //TODO: update category
 
 
     private function transformCollection(Collection $cats): array {
@@ -69,6 +89,7 @@ class CategoryController extends Controller
         ];
     }
     private function transformCollectionDfs(Collection $cats): array {
+        $this->visitedCategories = [];
         $categoryTree = [];
         foreach($cats as $cat) {
             if(!isset($this->visitedCategories[$cat->id])) {

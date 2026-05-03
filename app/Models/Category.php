@@ -36,7 +36,6 @@ class Category extends Model
     }
 
 
-    // recursively for tree-view
     public function descendants()
     {
         return $this->children()->with('descendants');
