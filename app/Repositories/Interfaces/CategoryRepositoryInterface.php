@@ -22,4 +22,6 @@ interface CategoryRepositoryInterface {
     public function getIntactive(): Collection;
 
     public function filter(array $filters, int $perPage): LengthAwarePaginator;
+
+    public function loadCategoryTree(int $catId): Category;
 }

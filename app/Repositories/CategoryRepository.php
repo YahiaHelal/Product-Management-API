@@ -62,7 +62,13 @@ class CategoryRepository implements CategoryRepositoryInterface {
         if(!empty($filters['tree']) && $filters['tree'] === 'true') {
             $query->withChildren();
         }
-
         return $query->paginate($perPage);
     }
+
+    public function loadCategoryTree(int $catId): Category
+    {
+        $query = Category::query();
+        return $query->find($catId)->withChildren();
+    }
+
 }

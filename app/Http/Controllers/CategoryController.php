@@ -49,12 +49,19 @@ class CategoryController extends Controller
     }
 
     // TODO: full tree of a single category
-    public function show(int $catId): JsonResponse {
-        $cat = $this->categoryService->getCategoryById($catId);
+    public function show(Request $request, int $catId): JsonResponse {
+        $treeView = $request->query('tree') === 'true';
+        if($treeView) {
+            $cat = $this->categoryService->loadCategoryTree($catId);
+        }else {
+            $cat = $this->categoryService->getCategoryById($catId);
+        }
 
         return response()->json([
             'locale' => app()->getLocale(),
-            'data' => $this->transformCategory($cat)
+            'data' => ($treeView)
+            ? $this->transformCategory($cat)
+            : $this->transformCategoryDfs($cat)
         ]);
     }
 

@@ -64,6 +64,11 @@ class CategoryService implements CategoryServiceInterface {
         return $this->repo->filter($filters, $perPage);
     }
 
+    public function loadCategoryTree(int $catId): Category
+    {
+        return $this->repo->loadCategoryTree($catId);
+    }
+
     private function extractTranslations(array &$data): array {
         $nameTranslations = $data['name'] ?? [];
         unset($data['name']);
