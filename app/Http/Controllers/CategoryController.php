@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Services\Interfaces\CategoryServiceInterface;
 use Illuminate\Http\JsonResponse;
@@ -79,6 +80,15 @@ class CategoryController extends Controller
     }
 
     //TODO: update category
+
+    public function update(UpdateCategoryRequest $request, int $catId): JsonResponse {
+        $cat = $this->categoryService->updateCategory($catId, $request->validated());
+
+        return response()->json([
+            'locale' => app()->getLocale(),
+            'data' => $this->transformCategory($cat)
+        ]);
+    }
 
 
     private function transformCollection(Collection $cats): array {
