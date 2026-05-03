@@ -7,6 +7,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use App\Services\Interfaces\CategoryServiceInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Override;
 
 class CategoryService implements CategoryServiceInterface {

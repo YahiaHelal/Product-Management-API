@@ -68,7 +68,12 @@ class CategoryRepository implements CategoryRepositoryInterface {
     public function loadCategoryTree(int $catId): Category
     {
         $query = Category::query();
-        return $query->find($catId)->withChildren();
+        $tree = $query->withChildren()->find($catId);
+        if($tree) {
+            return $tree;
+        }
+        abort(404);
+        // return $query->withChildren()->find($catId);
     }
 
 }

@@ -9,6 +9,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
+use function Illuminate\Log\log;
+
 class CategoryController extends Controller
 {
     private array $visitedCategories = [];
@@ -51,6 +53,7 @@ class CategoryController extends Controller
     // TODO: full tree of a single category
     public function show(Request $request, int $catId): JsonResponse {
         $treeView = $request->query('tree') === 'true';
+
         if($treeView) {
             $cat = $this->categoryService->loadCategoryTree($catId);
         }else {
@@ -60,8 +63,8 @@ class CategoryController extends Controller
         return response()->json([
             'locale' => app()->getLocale(),
             'data' => ($treeView)
-            ? $this->transformCategory($cat)
-            : $this->transformCategoryDfs($cat)
+            ? $this->transformCategoryDfs($cat)
+            : $this->transformCategory($cat)
         ]);
     }
 
