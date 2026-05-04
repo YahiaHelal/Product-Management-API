@@ -10,12 +10,12 @@ class ProductRepository implements ProductRepositoryInterface
 {
     public function all(): Collection
     {
-        return Product::all();
+        return Product::with('images')->get();
     }
 
     public function find(int $id): Product
     {
-        return Product::find($id);
+        return Product::with('images')->findOrFail($id);
     }
 
     public function create(array $data): Product

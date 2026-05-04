@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -35,6 +37,14 @@ class Product extends Model
         'stock' => 'integer',
         'status' => 'boolean',
     ];
+
+    protected $appends = ['main_image_url'];
+
+    protected function mainImageUrl(): Attribute {
+        return Attribute::make(
+            get: fn () => $this->main_image_path ? Storage::disk('public')->url($this->main_image_path): null
+        );
+    }
 
 
     public function category()

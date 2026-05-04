@@ -33,7 +33,7 @@ class StoreCategoryRequest extends FormRequest
                 'exists:categories,id',
             ],
             'status' => ['sometimes', 'boolean'],
-            'image_path' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'], // max 2MB
             'name' => ['required', 'array'],
             'name.en' => ['required_with:name', 'string', 'max:255'],
             'name.ar' => ['nullable', 'string', 'max:255'],

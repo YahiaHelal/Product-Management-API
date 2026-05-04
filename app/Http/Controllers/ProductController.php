@@ -95,11 +95,17 @@ class ProductController extends Controller
             'sale_price' => $product->sale_price,
             'stock' => $product->stock,
             'brand' => $product->brand,
-            'main_image_path' => $product->main_image_path,
+            'main_image_url' => $product->main_image_url,
             'status' => $product->status,
             'category_id' => $product->category_id,
             'title' => $translation?->title,
             'description' => $translation?->description,
+            'gallery_images' => $product->images->map(function ($image) {
+                return [
+                    'id' => $image->id,
+                    'image_url' => $image->image_url,
+                ];
+            })->toArray(),
             'created_at' => $product->created_at,
             'updated_at' => $product->updated_at,
         ];

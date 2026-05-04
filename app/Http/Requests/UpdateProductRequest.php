@@ -21,16 +21,25 @@ class UpdateProductRequest extends FormRequest
         return [
             'sku' => ['sometimes', 'string', 'max:255', Rule::unique('products', 'sku')->ignore($productId)],
             'price' => ['sometimes', 'numeric', 'min:0'],
-            'sale_price' => ['nullable', 'numeric', 'min:0', 'lte:price'],
+            'sale_price' => ['nullable', 'numeric', 'min:0', 'lt:price'],
             'stock' => ['sometimes', 'integer', 'min:0'],
             'brand' => ['sometimes', 'string', 'max:255'],
-            'main_image_path' => ['nullable', 'string', 'max:255'],
             'status' => ['sometimes', 'boolean'],
             'category_id' => ['sometimes', 'integer', 'exists:categories,id'],
+
+            'main_image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
+
+            'gallery_images' => ['nullable', 'array', 'max:10'],
+            'gallery_images.*' => ['image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
+
+            'delete_gallery_images' => ['nullable', 'array'],
+            'delete_gallery_images.*' => ['integer', 'exists:product_images,id'],
+
             'title' => ['sometimes', 'array'],
-            'title.en' => ['nullable', 'string', 'max:255'],
+            'title.en' => ['required_with:title', 'string', 'max:255'],
             'title.ar' => ['nullable', 'string', 'max:255'],
-            'description' => ['sometimes', 'array'],
+
+            'description' => ['nullable', 'array'],
             'description.en' => ['nullable', 'string'],
             'description.ar' => ['nullable', 'string'],
         ];

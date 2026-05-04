@@ -7,7 +7,9 @@ use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\ProductRepository;
 use App\Services\CategoryService;
+use App\Services\ImageService;
 use App\Services\Interfaces\CategoryServiceInterface;
+use App\Services\Interfaces\ImageServiceInterface;
 use App\Services\Interfaces\ProductServiceInterface;
 use App\Services\ProductService;
 use Illuminate\Support\ServiceProvider;
@@ -36,6 +38,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             CategoryServiceInterface::class,
             CategoryService::class
+        );
+
+        $this->app->bind(
+            ImageServiceInterface::class,
+            ImageService::class
         );
     }
 

@@ -17,10 +17,18 @@ class StoreProductRequest extends FormRequest
         return [
             'sku' => ['required', 'string', 'max:255', 'unique:products,sku'],
             'price' => ['required', 'numeric', 'min:0'],
-            'sale_price' => ['nullable', 'numeric', 'min:0', 'lte:price'],
+            'sale_price' => ['nullable', 'numeric', 'min:0', 'lt:price'],
             'stock' => ['required', 'integer', 'min:0'],
             'brand' => ['required', 'string', 'max:255'],
-            'main_image_path' => ['nullable', 'string', 'max:255'],
+
+            'main_image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp','max:2048'],
+
+            'gallery_images' => ['nullable', 'array', 'max:10'], // overall
+            'gallery_images.*' => ['image', 'mimes:png,jpg,jpeg,webp', 'max:2048'], // each image
+
+            'delete_gallery_images' => ['nullable', 'array'],
+            'delete_gallery_images.*' => ['integer', 'exists:product_images,id'],
+
             'status' => ['sometimes', 'boolean'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'title' => ['required', 'array'],
