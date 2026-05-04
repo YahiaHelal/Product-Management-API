@@ -21,7 +21,7 @@ class Product extends Model
         'sale_price',
         'stock',
         'brand',
-        'main_image_path',
+        'main_image_path', // may be visible to the admin only ?
         'status',
         'category_id',
     ];
@@ -38,7 +38,7 @@ class Product extends Model
         'status' => 'boolean',
     ];
 
-    protected $appends = ['main_image_url'];
+    protected $appends = ['main_image_url']; // getter only
 
     protected function mainImageUrl(): Attribute {
         return Attribute::make(

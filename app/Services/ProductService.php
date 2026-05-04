@@ -2,8 +2,10 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Models\ProductFile;
 use App\Models\ProductImage;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+use App\Services\Interfaces\FileServiceInterface;
 use App\Services\Interfaces\ImageServiceInterface;
 use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -12,7 +14,10 @@ use InvalidArgumentException;
 
 class ProductService implements ProductServiceInterface
 {
-    public function __construct(private ProductRepositoryInterface $repo, private ImageServiceInterface $imageService){}
+    public function __construct(
+        private ProductRepositoryInterface $repo,
+        private ImageServiceInterface $imageService,
+        private FileServiceInterface $fileService){}
 
     public function listAllProducts(): Collection
     {
@@ -35,16 +40,21 @@ class ProductService implements ProductServiceInterface
         }
 
         $galleryImages = $data['gallery_images'] ?? [];
-        unset($data['gallery_images']);
+        $files = $data['files'] ?? [];
+        unset($data['gallery_images'], $data['files']);
+
 
         $product = $this->repo->create($data);
 
         if(!empty($galleryImages)) {
             $this->attachGalleryImages($product, $galleryImages);
         }
+        if(!empty($files)) {
+            $this->attachFiles($product, $files);
+        }
         $this->syncTranslations($product, $translations);
 
-        return $product->load('images'); // re-load images only
+        return $product->load('images', 'files'); // re-load images only
     }
 
     public function updateProduct(int $id, array $data): Product
@@ -63,13 +73,22 @@ class ProductService implements ProductServiceInterface
             unset($data['delete_gallery_images']);
         }
 
+        if(isset($data['delete_files']) && !empty($data['delete_files'])) {
+            $this->deleteFiles($product, $data['delete_files']);
+            unset($data['delete_files']);
+        }
+
         $galleryImages = $data['gallery_images'] ?? [];
-        unset($data['gallery_images']);
+        $files = $data['files'] ?? [];
+        unset($data['gallery_images'], $data['files']);
 
         $product = $this->repo->update($id, $data);
 
         if(!empty($galleryImages)) {
             $this->attachGalleryImages($product, $galleryImages);
+        }
+        if(!empty($files)) {
+            $this->attachFiles($product, $files);
         }
 
 
@@ -80,6 +99,17 @@ class ProductService implements ProductServiceInterface
 
     public function deleteProduct(int $id): bool
     {
+        $product = $this->repo->find($id);
+        if($product->main_image_path) {
+            $this->imageService->delete($product->main_image_path);
+        }
+        foreach($product->images as $image) {
+            $this->imageService->delete($image->image_path);
+        }
+        foreach($product->files as $file) {
+            $this->fileService->delete($file->file_path);
+        }
+        
         return $this->repo->delete($id);
     }
 
@@ -153,12 +183,30 @@ class ProductService implements ProductServiceInterface
         }
     }
 
+
     private function deleteGalleryImages(Product $product, array $imageIds): void {
         $imagesToDelete = ProductImage::whereIn('id', $imageIds)->where('product_id', $product->id)->get();
 
         foreach($imagesToDelete as $image) {
             $this->imageService->delete($image->image_path);
             $image->delete();
+        }
+    }
+
+    private function attachFiles(Product $product, array $files): void {
+        $filesInfo = $this->fileService->uploadMultiple($files, 'products/files');
+
+        foreach($filesInfo as $fileInfo) {
+            $product->files()->create($fileInfo);
+        }
+    }
+
+    private function deleteFiles(Product $product, array $fileIds): void {
+        $files = ProductFile::whereIn('id', $fileIds)->where('product_id', $product->id)->get();
+
+        foreach($files as $file) {
+            $this->fileService->delete($file->file_path);
+            $file->delete();
         }
     }
 }

@@ -29,6 +29,10 @@ class StoreProductRequest extends FormRequest
             'delete_gallery_images' => ['nullable', 'array'],
             'delete_gallery_images.*' => ['integer', 'exists:product_images,id'],
 
+            'files' => ['nullable', 'array', 'max:5'],
+            'files.*' => ['file', 'mimes:pdf,doc,docx,txt', 'max:10240'], // 10MB per file
+            
+
             'status' => ['sometimes', 'boolean'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'title' => ['required', 'array'],

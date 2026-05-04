@@ -12,7 +12,10 @@ class ImageService implements ImageServiceInterface {
     // upload image and reutrn it's path
     public function upload(UploadedFile $image, string $dir = 'images'): string
     {
-        $fileName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+        $originalName = Str::uuid();
+        $extension =  $image->getClientOriginalExtension();
+        $fileName = $originalName . '.' . $extension;
+
         $path = $image->storeAs($dir, $fileName, 'public'); // stored in storage/app/public [inaccessable]
         return $path;
     }
@@ -60,7 +63,7 @@ class ImageService implements ImageServiceInterface {
             return null;
         }
 
-        return Storage::disk('public')->url($path); // public/storage
+        return Storage::disk('public')->url($path);
     }
 
 }

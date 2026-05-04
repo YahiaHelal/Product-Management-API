@@ -106,6 +106,15 @@ class ProductController extends Controller
                     'image_url' => $image->image_url,
                 ];
             })->toArray(),
+            'files' => $product->files->map(function ($file) {
+                return [
+                    'id' => $file->id,
+                    'file_name' => $file->file_name,
+                    'file_type' => $file->file_type,
+                    'file_size' => $file->formatted_file_size,
+                    'file_url' => $file->file_url,
+                ];
+            })->toArray(),
             'created_at' => $product->created_at,
             'updated_at' => $product->updated_at,
         ];

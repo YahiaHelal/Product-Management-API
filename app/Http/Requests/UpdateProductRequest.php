@@ -35,6 +35,12 @@ class UpdateProductRequest extends FormRequest
             'delete_gallery_images' => ['nullable', 'array'],
             'delete_gallery_images.*' => ['integer', 'exists:product_images,id'],
 
+            'files' => ['nullable', 'array', 'max:5'],
+            'files.*' => ['file', 'mimes:pdf,doc,docx,txt', 'max:10240'],
+
+            'delete_files' => ['nullable', 'array'],
+            'delete_files.*' => ['integer', 'exists:product_files,id'],
+
             'title' => ['sometimes', 'array'],
             'title.en' => ['required_with:title', 'string', 'max:255'],
             'title.ar' => ['nullable', 'string', 'max:255'],

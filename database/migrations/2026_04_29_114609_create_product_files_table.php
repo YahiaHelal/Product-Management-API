@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('file_name');
 
-            $table->unsignedBigInteger('size')->nullable(); // size in bytes
+            $table->unsignedBigInteger('file_size'); // size in bytes
 
             $table->timestamps();
 

@@ -7,8 +7,10 @@ use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\ProductRepository;
 use App\Services\CategoryService;
+use App\Services\FileService;
 use App\Services\ImageService;
 use App\Services\Interfaces\CategoryServiceInterface;
+use App\Services\Interfaces\FileServiceInterface;
 use App\Services\Interfaces\ImageServiceInterface;
 use App\Services\Interfaces\ProductServiceInterface;
 use App\Services\ProductService;
@@ -43,6 +45,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ImageServiceInterface::class,
             ImageService::class
+        );
+
+        $this->app->bind(
+            FileServiceInterface::class,
+            FileService::class
         );
     }
 
