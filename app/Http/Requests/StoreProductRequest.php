@@ -31,7 +31,10 @@ class StoreProductRequest extends FormRequest
 
             'files' => ['nullable', 'array', 'max:5'],
             'files.*' => ['file', 'mimes:pdf,doc,docx,txt', 'max:10240'], // 10MB per file
-            
+
+            'attributes' => ['nullable', 'array'],
+            'attributes.*.name' => ['required', 'string', 'max:255'],
+            'attributes.*.value' => ['required', 'string', 'max:255'],
 
             'status' => ['sometimes', 'boolean'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],

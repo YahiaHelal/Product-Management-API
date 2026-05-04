@@ -29,6 +29,7 @@ class ProductService implements ProductServiceInterface
         return $this->repo->find($id);
     }
 
+    // TODO: more compact ?
     public function createProduct(array $data): Product
     {
         $this->validatePricing($data);
@@ -41,7 +42,8 @@ class ProductService implements ProductServiceInterface
 
         $galleryImages = $data['gallery_images'] ?? [];
         $files = $data['files'] ?? [];
-        unset($data['gallery_images'], $data['files']);
+        $attributes = $data['attributes'] ?? [];
+        unset($data['gallery_images'], $data['files'], $data['attributes']);
 
 
         $product = $this->repo->create($data);
@@ -52,9 +54,12 @@ class ProductService implements ProductServiceInterface
         if(!empty($files)) {
             $this->attachFiles($product, $files);
         }
+        if(!empty($attributes)) {
+            $this->syncAttributes($product, $attributes);
+        }
         $this->syncTranslations($product, $translations);
 
-        return $product->load('images', 'files'); // re-load images only
+        return $product->load(['images', 'files', 'attributes']); // re-load
     }
 
     public function updateProduct(int $id, array $data): Product
@@ -80,7 +85,8 @@ class ProductService implements ProductServiceInterface
 
         $galleryImages = $data['gallery_images'] ?? [];
         $files = $data['files'] ?? [];
-        unset($data['gallery_images'], $data['files']);
+        $attributes = $data['attributes'] ?? [];
+        unset($data['gallery_images'], $data['files'], $data['attributes']);
 
         $product = $this->repo->update($id, $data);
 
@@ -90,16 +96,20 @@ class ProductService implements ProductServiceInterface
         if(!empty($files)) {
             $this->attachFiles($product, $files);
         }
-
+        if(!empty($attributes)) {
+            $this->syncAttributes($product, $attributes);
+        }
 
         $this->syncTranslations($product, $translations);
 
-        return $product->load('images');
+        return $product->load(['images', 'files', 'attributes']);
     }
 
     public function deleteProduct(int $id): bool
     {
         $product = $this->repo->find($id);
+
+        // remove from disk
         if($product->main_image_path) {
             $this->imageService->delete($product->main_image_path);
         }
@@ -109,7 +119,7 @@ class ProductService implements ProductServiceInterface
         foreach($product->files as $file) {
             $this->fileService->delete($file->file_path);
         }
-        
+
         return $this->repo->delete($id);
     }
 
@@ -173,6 +183,19 @@ class ProductService implements ProductServiceInterface
 
         if (!empty($locales)) {
             $product->save();
+        }
+    }
+
+    private function syncAttributes(Product $product, array $attributes): void {
+        // delete all attr then insert new ones for now
+
+        $product->attributes()->delete();
+
+        foreach($attributes as $attribute) {
+            $product->attributes()->create([
+                'name' => $attribute['name'],
+                'value' => $attribute['value'],
+            ]);
         }
     }
 

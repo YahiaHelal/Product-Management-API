@@ -41,6 +41,10 @@ class UpdateProductRequest extends FormRequest
             'delete_files' => ['nullable', 'array'],
             'delete_files.*' => ['integer', 'exists:product_files,id'],
 
+            'attributes' => ['nullable', 'array'],
+            'attributes.*.name' => ['required', 'string', 'max:255'],
+            'attributes.*.value' => ['required', 'string', 'max:255'],
+
             'title' => ['sometimes', 'array'],
             'title.en' => ['required_with:title', 'string', 'max:255'],
             'title.ar' => ['nullable', 'string', 'max:255'],

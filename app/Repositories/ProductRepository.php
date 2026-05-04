@@ -10,12 +10,12 @@ class ProductRepository implements ProductRepositoryInterface
 {
     public function all(): Collection
     {
-        return Product::with(['images', 'files'])->get();
+        return Product::with(['images', 'files', 'attributes'])->get();
     }
 
     public function find(int $id): Product
     {
-        return Product::with(['images', 'files'])->findOrFail($id);
+        return Product::with(['images', 'files', 'attributes'])->findOrFail($id);
     }
 
     public function create(array $data): Product
@@ -47,7 +47,7 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     public function filter(array $filters, int $perPage = 10): LengthAwarePaginator {
-        $query = Product::query()->with(['images', 'files']);
+        $query = Product::query()->with(['images', 'files', 'attributes']);
 
         if(!empty($filters['active_only'])) {
             if($filters['active_only'] === 'true') {
