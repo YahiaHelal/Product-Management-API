@@ -98,8 +98,8 @@ class CategoryService implements CategoryServiceInterface {
         }
         foreach($translations['name'] as $locale => $name) {
             $translation = $cat->translateOrNew($locale);
-            $translation->name = $name;
+            $translation->name = $name; // updates in memory
         }
-        $cat->save();
+        $cat->save(); // flush changes to db
     }
 }
