@@ -23,10 +23,10 @@ Route::middleware('auth:api')->prefix('auth')->group(function () {
 });
 
 // favorites
-Route::middleware('auth:api')->prefix('auth')->group(function () {
+Route::middleware('auth:api')->prefix('favorites')->group(function () {
     Route::get('/', [FavoritesController::class, 'index']);
-    Route::post('/{product}', [FavoritesController::class, 'store']);
-    Route::delete('/{product}', [FavoritesController::class, 'delete']);
+    Route::post('/{prodId}', [FavoritesController::class, 'store']);
+    Route::delete('/{prodId}', [FavoritesController::class, 'destroy']);
 });
 
 // admin

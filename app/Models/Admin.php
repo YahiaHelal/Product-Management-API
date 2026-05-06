@@ -35,6 +35,9 @@ class Admin extends Authenticatable implements JWTSubject
         return $this->getKey();
     }
 
+
+    // note: currently not used, but could be helpful for the frontend or a custom middleware checking
+    // auth()->payload()->get('type') => 'admin'
     public function getJWTCustomClaims()
     {
         return [

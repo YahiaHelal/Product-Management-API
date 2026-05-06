@@ -1,0 +1,2480 @@
+{
+  "info": {
+    "_postman_id": "d50eb96a-62de-48e9-a097-ad0cacf499de",
+    "name": "ProductManagementAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34239303"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const token = response.authorization.token;\r",
+                  "pm.environment.set(\"access_token\", token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"user\",\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const token = response.authorization.token;\r",
+                  "pm.environment.set(\"access_token\", token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"user@mail.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "pm.environment.unset(\"access_token\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "const token = response.authorization.token;\r",
+                  "pm.environment.set(\"access_token\", token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/refresh",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "pm.environment.set(\"access_token\", response.authorization.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.unset(\"access_token\");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "pm.environment.set(\"access_token\", response.authorization.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/refresh",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get Products",
+          "item": [
+            {
+              "name": "All products",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Products in ar",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "ar",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_paeg",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Products in en",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "en",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filter by brand",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "en",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products?brand=sony",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "brand",
+                      "value": "sony"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filter by active",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products?active_only=true",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "active_only",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Filter by inactive",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products?active_only=false",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "active_only",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "By Category",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products?category_id=3",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "By price range",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products?min_price=50&max_price=500",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "min_price",
+                      "value": "50"
+                    },
+                    {
+                      "key": "max_price",
+                      "value": "500",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "By id in ar",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "ar",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "By id in en",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "en",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search product",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "en",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1?search=Et+omnis+possimus",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "products",
+                    "1"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "5",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "search",
+                      "value": "Et+omnis+possimus",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Delete Products",
+          "item": [
+            {
+              "name": "Existing product",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Non-Existing product",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Update Products",
+          "item": [
+            {
+              "name": "Existing product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "price",
+                      "value": "500",
+                      "type": "text",
+                      "uuid": "adb87192-3f8a-4381-a1ca-d7886d80852d"
+                    },
+                    {
+                      "key": "main_image",
+                      "type": "file",
+                      "uuid": "aa098f9b-c9b4-4de7-8dd4-3a0ed6cd8144",
+                      "src": "postman-cloud:///1f1494ca-9dd9-47d0-a606-3d555ffe3774"
+                    },
+                    {
+                      "key": "gallery_images[]",
+                      "type": "file",
+                      "uuid": "ef0a7ac3-d23d-4fcd-aa73-f9f4a94e377c",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    },
+                    {
+                      "key": "files[]",
+                      "type": "file",
+                      "uuid": "673d508b-b0be-46af-81a1-ddd5bb98d240",
+                      "src": "postman-cloud:///1f1494cc-46eb-4d90-b4d4-2934e0d2649d"
+                    },
+                    {
+                      "key": "attributes[0][name]",
+                      "value": "RAM",
+                      "type": "text",
+                      "uuid": "621c7ef2-cd59-460d-9621-c8cdd21db295"
+                    },
+                    {
+                      "key": "attributes[0][value]",
+                      "value": "32GB",
+                      "type": "text",
+                      "uuid": "edca5f9f-36d8-4112-8c99-e42ebd5e6983"
+                    },
+                    {
+                      "key": "_method",
+                      "value": "PUT",
+                      "type": "text",
+                      "uuid": "497fad13-3321-4bd2-92f8-f89729c63d45"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products/4",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Non-Existing product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "_method",
+                      "value": "PUT",
+                      "type": "text",
+                      "uuid": "f95298fc-614f-4365-ab1f-87bbb6f6c632"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products/500",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products",
+                    "500"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid pricing",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "_method",
+                      "value": "PUT",
+                      "type": "text",
+                      "uuid": "f95298fc-614f-4365-ab1f-87bbb6f6c632"
+                    },
+                    {
+                      "key": "price",
+                      "value": "500",
+                      "type": "text",
+                      "uuid": "444e2a66-1934-46f8-b202-59c3b930c20f"
+                    },
+                    {
+                      "key": "sale_price",
+                      "value": "700",
+                      "type": "text",
+                      "uuid": "ef5fad2e-fa77-4c8f-a74d-2ed24a846815"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Existing sku",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "_method",
+                      "value": "PUT",
+                      "type": "text",
+                      "uuid": "f95298fc-614f-4365-ab1f-87bbb6f6c632"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "SKU-0400-VXPQ",
+                      "type": "text",
+                      "uuid": "07215feb-6e65-495c-838d-aa67a4989b4b"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products/4",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create Products",
+          "item": [
+            {
+              "name": "Create Product",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title[en]",
+                      "value": "product",
+                      "type": "text",
+                      "uuid": "f95298fc-614f-4365-ab1f-87bbb6f6c632"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "SKU-0400-EFGH",
+                      "type": "text",
+                      "uuid": "07215feb-6e65-495c-838d-aa67a4989b4b"
+                    },
+                    {
+                      "key": "price",
+                      "value": "500",
+                      "type": "text",
+                      "uuid": "340836c2-2794-4ecf-aaa8-63d14e2bfb48"
+                    },
+                    {
+                      "key": "sale_price",
+                      "value": "200",
+                      "type": "text",
+                      "uuid": "6e24338f-e26a-4536-a530-606ddcad40c4"
+                    },
+                    {
+                      "key": "stock",
+                      "value": "400",
+                      "type": "text",
+                      "uuid": "b2c63117-5a7a-4a62-b87e-ae8e1e9c8efa"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "Sony",
+                      "type": "text",
+                      "uuid": "f3da38ef-7b87-43ef-a842-cf0f8ba7db61"
+                    },
+                    {
+                      "key": "main_image",
+                      "type": "file",
+                      "uuid": "b676b80a-4596-437b-b5b4-e4a4e9642814",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    },
+                    {
+                      "key": "gallery_images[]",
+                      "type": "file",
+                      "uuid": "ae01ffae-f7f3-4f9c-8ba7-214ab782f96f",
+                      "src": [
+                        "postman-cloud:///1f1494ce-c8b4-4b90-a02a-85d107e3ab98",
+                        "postman-cloud:///1f1494ca-9dd9-47d0-a606-3d555ffe3774"
+                      ]
+                    },
+                    {
+                      "key": "files[]",
+                      "type": "file",
+                      "uuid": "0a9e770c-9749-4951-acca-0bb9a138794f",
+                      "src": "postman-cloud:///1f1494cc-46eb-4d90-b4d4-2934e0d2649d"
+                    },
+                    {
+                      "key": "attributes[0][name]",
+                      "value": "RAM",
+                      "type": "text",
+                      "uuid": "8c686fa5-ede8-45c9-9d4b-4f2d02bd6f55"
+                    },
+                    {
+                      "key": "attributes[0][value]",
+                      "value": "32GB",
+                      "type": "text",
+                      "uuid": "3abb0f33-6bd9-4df2-86fb-111529a3c073"
+                    },
+                    {
+                      "key": "attributes[1][name]",
+                      "value": "Disk",
+                      "type": "text",
+                      "uuid": "1c569823-fd0f-45be-8492-37573f8feb76"
+                    },
+                    {
+                      "key": "attributes[1][value]",
+                      "value": "1TB SSD",
+                      "type": "text",
+                      "uuid": "dff6e3c0-d069-47e1-8a0d-b1b7ec76292d"
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "9d658cfc-bc67-4494-acaa-22ebb4946d67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Existing sku",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title[en]",
+                      "value": "product",
+                      "type": "text",
+                      "uuid": "f95298fc-614f-4365-ab1f-87bbb6f6c632"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "SKU-0400-EFGH",
+                      "type": "text",
+                      "uuid": "07215feb-6e65-495c-838d-aa67a4989b4b"
+                    },
+                    {
+                      "key": "price",
+                      "value": "500",
+                      "type": "text",
+                      "uuid": "340836c2-2794-4ecf-aaa8-63d14e2bfb48"
+                    },
+                    {
+                      "key": "sale_price",
+                      "value": "200",
+                      "type": "text",
+                      "uuid": "6e24338f-e26a-4536-a530-606ddcad40c4"
+                    },
+                    {
+                      "key": "stock",
+                      "value": "400",
+                      "type": "text",
+                      "uuid": "b2c63117-5a7a-4a62-b87e-ae8e1e9c8efa"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "Sony",
+                      "type": "text",
+                      "uuid": "f3da38ef-7b87-43ef-a842-cf0f8ba7db61"
+                    },
+                    {
+                      "key": "main_image",
+                      "type": "file",
+                      "uuid": "b676b80a-4596-437b-b5b4-e4a4e9642814",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    },
+                    {
+                      "key": "gallery_images[]",
+                      "type": "file",
+                      "uuid": "ae01ffae-f7f3-4f9c-8ba7-214ab782f96f",
+                      "src": [
+                        "postman-cloud:///1f1494ce-c8b4-4b90-a02a-85d107e3ab98",
+                        "postman-cloud:///1f1494ca-9dd9-47d0-a606-3d555ffe3774"
+                      ]
+                    },
+                    {
+                      "key": "files[]",
+                      "type": "file",
+                      "uuid": "0a9e770c-9749-4951-acca-0bb9a138794f",
+                      "src": "postman-cloud:///1f1494cc-46eb-4d90-b4d4-2934e0d2649d"
+                    },
+                    {
+                      "key": "attributes[0][name]",
+                      "value": "RAM",
+                      "type": "text",
+                      "uuid": "8c686fa5-ede8-45c9-9d4b-4f2d02bd6f55"
+                    },
+                    {
+                      "key": "attributes[0][value]",
+                      "value": "32GB",
+                      "type": "text",
+                      "uuid": "3abb0f33-6bd9-4df2-86fb-111529a3c073"
+                    },
+                    {
+                      "key": "attributes[1][name]",
+                      "value": "Disk",
+                      "type": "text",
+                      "uuid": "1c569823-fd0f-45be-8492-37573f8feb76"
+                    },
+                    {
+                      "key": "attributes[1][value]",
+                      "value": "1TB SSD",
+                      "type": "text",
+                      "uuid": "dff6e3c0-d069-47e1-8a0d-b1b7ec76292d"
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "9d658cfc-bc67-4494-acaa-22ebb4946d67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid pricing",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title[en]",
+                      "value": "product",
+                      "type": "text",
+                      "uuid": "f95298fc-614f-4365-ab1f-87bbb6f6c632"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "SKU-0400-QWER",
+                      "type": "text",
+                      "uuid": "07215feb-6e65-495c-838d-aa67a4989b4b"
+                    },
+                    {
+                      "key": "price",
+                      "value": "500",
+                      "type": "text",
+                      "uuid": "340836c2-2794-4ecf-aaa8-63d14e2bfb48"
+                    },
+                    {
+                      "key": "sale_price",
+                      "value": "1000",
+                      "type": "text",
+                      "uuid": "6e24338f-e26a-4536-a530-606ddcad40c4"
+                    },
+                    {
+                      "key": "stock",
+                      "value": "400",
+                      "type": "text",
+                      "uuid": "b2c63117-5a7a-4a62-b87e-ae8e1e9c8efa"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "Sony",
+                      "type": "text",
+                      "uuid": "f3da38ef-7b87-43ef-a842-cf0f8ba7db61"
+                    },
+                    {
+                      "key": "main_image",
+                      "type": "file",
+                      "uuid": "b676b80a-4596-437b-b5b4-e4a4e9642814",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    },
+                    {
+                      "key": "gallery_images[]",
+                      "type": "file",
+                      "uuid": "ae01ffae-f7f3-4f9c-8ba7-214ab782f96f",
+                      "src": [
+                        "postman-cloud:///1f1494ce-c8b4-4b90-a02a-85d107e3ab98",
+                        "postman-cloud:///1f1494ca-9dd9-47d0-a606-3d555ffe3774"
+                      ]
+                    },
+                    {
+                      "key": "files[]",
+                      "type": "file",
+                      "uuid": "0a9e770c-9749-4951-acca-0bb9a138794f",
+                      "src": "postman-cloud:///1f1494cc-46eb-4d90-b4d4-2934e0d2649d"
+                    },
+                    {
+                      "key": "attributes[0][name]",
+                      "value": "RAM",
+                      "type": "text",
+                      "uuid": "8c686fa5-ede8-45c9-9d4b-4f2d02bd6f55"
+                    },
+                    {
+                      "key": "attributes[0][value]",
+                      "value": "32GB",
+                      "type": "text",
+                      "uuid": "3abb0f33-6bd9-4df2-86fb-111529a3c073"
+                    },
+                    {
+                      "key": "attributes[1][name]",
+                      "value": "Disk",
+                      "type": "text",
+                      "uuid": "1c569823-fd0f-45be-8492-37573f8feb76"
+                    },
+                    {
+                      "key": "attributes[1][value]",
+                      "value": "1TB SSD",
+                      "type": "text",
+                      "uuid": "dff6e3c0-d069-47e1-8a0d-b1b7ec76292d"
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "9d658cfc-bc67-4494-acaa-22ebb4946d67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "missing required field",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "title[en]",
+                      "value": "product",
+                      "type": "text",
+                      "uuid": "f95298fc-614f-4365-ab1f-87bbb6f6c632"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "SKU-0400-EFGH",
+                      "type": "text",
+                      "uuid": "07215feb-6e65-495c-838d-aa67a4989b4b",
+                      "disabled": true
+                    },
+                    {
+                      "key": "price",
+                      "value": "500",
+                      "type": "text",
+                      "uuid": "340836c2-2794-4ecf-aaa8-63d14e2bfb48"
+                    },
+                    {
+                      "key": "sale_price",
+                      "value": "200",
+                      "type": "text",
+                      "uuid": "6e24338f-e26a-4536-a530-606ddcad40c4"
+                    },
+                    {
+                      "key": "stock",
+                      "value": "400",
+                      "type": "text",
+                      "uuid": "b2c63117-5a7a-4a62-b87e-ae8e1e9c8efa"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "Sony",
+                      "type": "text",
+                      "uuid": "f3da38ef-7b87-43ef-a842-cf0f8ba7db61"
+                    },
+                    {
+                      "key": "main_image",
+                      "type": "file",
+                      "uuid": "b676b80a-4596-437b-b5b4-e4a4e9642814",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    },
+                    {
+                      "key": "gallery_images[]",
+                      "type": "file",
+                      "uuid": "ae01ffae-f7f3-4f9c-8ba7-214ab782f96f",
+                      "src": [
+                        "postman-cloud:///1f1494ce-c8b4-4b90-a02a-85d107e3ab98",
+                        "postman-cloud:///1f1494ca-9dd9-47d0-a606-3d555ffe3774"
+                      ]
+                    },
+                    {
+                      "key": "files[]",
+                      "type": "file",
+                      "uuid": "0a9e770c-9749-4951-acca-0bb9a138794f",
+                      "src": "postman-cloud:///1f1494cc-46eb-4d90-b4d4-2934e0d2649d"
+                    },
+                    {
+                      "key": "attributes[0][name]",
+                      "value": "RAM",
+                      "type": "text",
+                      "uuid": "8c686fa5-ede8-45c9-9d4b-4f2d02bd6f55"
+                    },
+                    {
+                      "key": "attributes[0][value]",
+                      "value": "32GB",
+                      "type": "text",
+                      "uuid": "3abb0f33-6bd9-4df2-86fb-111529a3c073"
+                    },
+                    {
+                      "key": "attributes[1][name]",
+                      "value": "Disk",
+                      "type": "text",
+                      "uuid": "1c569823-fd0f-45be-8492-37573f8feb76"
+                    },
+                    {
+                      "key": "attributes[1][value]",
+                      "value": "1TB SSD",
+                      "type": "text",
+                      "uuid": "dff6e3c0-d069-47e1-8a0d-b1b7ec76292d"
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "9d658cfc-bc67-4494-acaa-22ebb4946d67"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "products"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get Categories",
+          "item": [
+            {
+              "name": "All categories",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "en",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Tree view categories",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "en",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/categories?tree=true",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ],
+                  "query": [
+                    {
+                      "key": "tree",
+                      "value": "true",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Specific category",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "en",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/categories/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Specific category tree",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "ar",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/categories/1?tree=true",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ],
+                  "query": [
+                    {
+                      "key": "tree",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Active only",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Accept-Language",
+                    "value": "ar",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/categories/?active_only=true",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "active_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "tree",
+                      "value": "true",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Inactive only",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/categories/?active_only=false",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    ""
+                  ],
+                  "query": [
+                    {
+                      "key": "active_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "tree",
+                      "value": "true",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Delete Categories",
+          "item": [
+            {
+              "name": "Existing category",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/admin/categories/37",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "categories",
+                    "37"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Non-Existing category",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/admin/categories/37",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "categories",
+                    "37"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Update Category",
+          "item": [
+            {
+              "name": "Existing category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "_method",
+                      "value": "PATCH",
+                      "type": "text",
+                      "uuid": "6e103226-f065-49d1-8a7e-7b126f6aa614"
+                    },
+                    {
+                      "key": "status",
+                      "value": "0",
+                      "type": "text",
+                      "uuid": "4dbbcfa0-332b-4516-8a2a-3634e1a641ba"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "004f12c6-78bd-4164-9ac8-69dbc953db04",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/categories/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Non-Existing category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "_method",
+                      "value": "PATCH",
+                      "type": "text",
+                      "uuid": "6e103226-f065-49d1-8a7e-7b126f6aa614"
+                    },
+                    {
+                      "key": "status",
+                      "value": "0",
+                      "type": "text",
+                      "uuid": "4dbbcfa0-332b-4516-8a2a-3634e1a641ba"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "004f12c6-78bd-4164-9ac8-69dbc953db04",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/categories/500",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "categories",
+                    "500"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Circular Categories",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "_method",
+                      "value": "PATCH",
+                      "type": "text",
+                      "uuid": "6e103226-f065-49d1-8a7e-7b126f6aa614"
+                    },
+                    {
+                      "key": "status",
+                      "value": "0",
+                      "type": "text",
+                      "uuid": "4dbbcfa0-332b-4516-8a2a-3634e1a641ba"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "004f12c6-78bd-4164-9ac8-69dbc953db04",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "93050fb3-bb73-43ed-b0ef-a74186cdf950"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/categories/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create Category",
+          "item": [
+            {
+              "name": "New Category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name[en]",
+                      "value": "Sample Category",
+                      "type": "text",
+                      "uuid": "d735f8e1-1635-4284-ba21-2654674974b4"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "6b7201a8-189a-4a67-bd7b-3e0919d3c3d9"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "5285df30-b031-4161-bdf4-cf8e4ecbfc8f",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    },
+                    {
+                      "key": "name[ar]",
+                      "value": "نوع",
+                      "type": "text",
+                      "uuid": "a5258fb7-a5b8-483f-8d5a-4430e1145dbe"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "categories"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid parent",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "name[en]",
+                      "value": "Sample Category",
+                      "type": "text",
+                      "uuid": "d735f8e1-1635-4284-ba21-2654674974b4"
+                    },
+                    {
+                      "key": "parent_id",
+                      "value": "500",
+                      "type": "text",
+                      "uuid": "6b7201a8-189a-4a67-bd7b-3e0919d3c3d9"
+                    },
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "uuid": "5285df30-b031-4161-bdf4-cf8e4ecbfc8f",
+                      "src": "postman-cloud:///1f1494cb-bff2-4a00-81df-499d0fd394b5"
+                    },
+                    {
+                      "key": "name[ar]",
+                      "value": "نوع",
+                      "type": "text",
+                      "uuid": "a5258fb7-a5b8-483f-8d5a-4430e1145dbe"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/admin/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "categories"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Favorites",
+      "item": [
+        {
+          "name": "User favorites",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/favorites",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "favorites"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add favorite",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/favorites/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "favorites",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove favorite",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/favorites/6",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "favorites",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

@@ -10,7 +10,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-use function Illuminate\Log\log;
 
 class CategoryController extends Controller
 {

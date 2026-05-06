@@ -41,13 +41,13 @@ class UpdateCategoryRequest extends FormRequest
 
                     $parentCategory = Category::findOrFail($value);
                     if($parentCategory && !$parentCategory->canBeParentOf($id)) {
-                        $fail('Cannot create category circular reference');
+                        $fail('Cannot create category cycle');
                     }
                 }
             ],
             'status' => ['sometimes', 'boolean'],
             'image' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
-            'name' => ['required', 'array'],
+            'name' => ['sometimes', 'array'],
             'name.en' => ['required_with:name', 'string', 'max:255'],
             'name.ar' => ['nullable', 'string', 'max:255'],
         ];

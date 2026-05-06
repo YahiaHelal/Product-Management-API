@@ -10,27 +10,24 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoritesController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth:api');
-    }
 
     public function index(): JsonResponse {
         $user = Auth::guard('api')->user();
 
-        $favs = $user->favorites()->with(['images', 'category']);
+        $favs = $user->favorites()->with(['images', 'attributes'])->get();
 
         return response()->json([
             'locale' => app()->getLocale(),
-            'data' => $this->transformCollection(collect($favs->items())),
+            'data' => $this->transformCollection($favs),
         ]);
     }
 
     public function store(int $prodId): JsonResponse {
         $user = Auth::guard('api')->user();
 
-        $prod = Product::findOrFail($prodId);
+        Product::findOrFail($prodId);
 
-        if($user->favorites()->where('product_id', $prodId)->eixsts()) {
+        if($user->favorites()->where('product_id', $prodId)->exists()) {
             return response()->json([
                 'locale' => app()->getLocale(),
                 'message' => 'Product already in your favorites',
@@ -78,6 +75,7 @@ class FavoritesController extends Controller
                 'brand' => $product->brand,
                 'main_image_url' => $product->main_image_url,
                 'category_id' => $product->category_id,
+                'attributes' => $product->attributes,
             ];
     }
 }
