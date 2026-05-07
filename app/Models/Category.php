@@ -118,7 +118,7 @@ class Category extends Model
         }
 
         // no loops
-        $child = Category::findOrFail($childId); // exception if childId is not existing
+        $child = Category::findOrFail($childId); 
         if ($child && $child->isDescendantOf($this->id)) {
             return false;
         }
