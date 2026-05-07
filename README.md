@@ -28,7 +28,7 @@ A comprehensive RESTful API for e-commerce product management built with Laravel
 
 - **Framework**: Laravel 11.x
 - **PHP**: 8.2+
-- **Database**: MySQL 8.0
+- **Database**: Sqlite 3.40.1
 - **Authentication**: JWT (php-open-source-saver/jwt-auth)
 - **Translations**: Astrotomic Translatable
 - **Storage**: Laravel Storage (local/public disk)
