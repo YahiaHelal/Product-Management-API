@@ -20,7 +20,7 @@ A comprehensive RESTful API for e-commerce product management built with Laravel
 - **Admin Dashboard** - Protected CRUD operations for categories and products
 
 ### System Architecture
-![Architecture](docs/Design/Product Management API Architecture.jpg)
+![Architecture](<docs/Design/Product Management API Architecture.jpg>)
 
 ---
 
